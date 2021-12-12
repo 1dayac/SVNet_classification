@@ -31,12 +31,15 @@ def run():
 
     for position in positions:
         for filename, name in all_datasets:
-            bash_command_view_2 = filename + " " + position[0] + ":" + str(position[1] - 10000) + "-" + str(position[2] + 10000) 
+            subdir = os.path.join(final_dir, position[0] + "-" + str(position[1]) + "-" + str(position[2]))
+            if not os.path.exists(subdir):
+                os.makedirs(subdir)
+            bash_command_view_2 = filename + " " + position[0] + ":" + str(position[1] - 10000) + "-" + str(position[2] + 10000)
             full_view_command = bash_command_view_1 + bash_command_view_2
             print(full_view_command)
-            with open(os.path.join(final_dir, position[0] + "-" + str(position[1]) + "-" + str(position[2])  + "_" + name + ".bam"), "w") as out_bam:
+            with open(os.path.join(subdir, name + ".bam"), "w") as out_bam:
                 subprocess.call(full_view_command.split(), stdout=out_bam)
-            full_index_command = bash_command_index_1 + os.path.join(final_dir, position[0] + "-" + str(position[1]) + "-" + str(position[2])  + "_" + name + ".bam")
+            full_index_command = bash_command_index_1 + os.path.join(subdir, name + ".bam")
             subprocess.call(full_index_command.split())
 
 
