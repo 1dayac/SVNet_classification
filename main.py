@@ -31,7 +31,7 @@ def run():
 
     for position in positions:
         for filename, name in all_datasets:
-            bash_command_view_2 = filename + " " + "\"" + position[0] + "-" + str(position[1] - 10000) + "-" + str(position[2] + 10000) + "\" " + \
+            bash_command_view_2 = filename + " " + "\"" + position[0] + ":" + str(position[1] - 10000) + "-" + str(position[2] + 10000) + "\" " + \
                 ">" + os.path.join(final_dir, position[0] + "-" + str(position[1]) + "-" + str(position[2])  + "_" + name + ".bam")
             full_view_command = bash_command_view_1 + bash_command_view_2
             print(full_view_command)
